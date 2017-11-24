@@ -110,6 +110,13 @@ url: https://tools.ietf.org/html/rfc7234#section-1.2.1;text:delta-seconds;type:d
     },
     "OCSP": {
         "aliasOf": "RFC2560"
+    },
+    "CLEAR-SITE-DATA": {
+        "authors": [
+          "Mike West"
+        ],
+        "href": "https://w3c.github.io/webappsec-clear-site-data/",
+        "title": "Clear Site Data"
     }
 }
 </pre>
@@ -137,6 +144,7 @@ specifications:
  <li>Service workers [[!SW]]
  <li>Mixed Content [[!MIX]]
  <li>`<code>Referer</code>` [[!REFERRER]]
+ <li>Clear Site Data [[!CLEAR-SITE-DATA]]
 </ul>
 
 
@@ -524,6 +532,7 @@ from APIs using <a for=/>fetch</a> that allow control over
 <ul class=brief>
  <li>`<code>Set-Cookie</code>`
  <li>`<code>Set-Cookie2</code>`
+ <li>`<code>Clear-Site-Data</code>`
 </ul>
 
 <hr>
@@ -2811,6 +2820,13 @@ with a <i>CORS flag</i> and <i>recursive flag</i>, run these steps:
 
   <p class=note>This operates on <var>response</var> as this algorithm is not supposed to observe
   <var>internalResponse</var>. That would allow an attacker to use hashes as an oracle.
+
+ <li>
+  <p> If <var>response</var>'s <a for=response>header list</a> contains a header
+  named `<code>Clear-Site-Data</code>`, then execute
+  <a href=https://w3c.github.io/webappsec-clear-site-data/#clear-response>Clear data for response</a>
+  on <var>response</var>. [[!CLEAR-SITE-DATA]]
+  <!-- Clear-Site-Data is curently only implemented in Chromium. -->
 
  <li>
   <p>If <var>request</var>'s <a>synchronous flag</a> is set,
